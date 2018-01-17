@@ -42,10 +42,6 @@ namespace PS.DB.Repositories
                     db.SaveChanges();
                 }
             }
-            else
-            {
-                throw new Exception("Couldn't save null instance");
-            }
         }
 
         public int SaveAll(List<Item> List)
@@ -86,6 +82,17 @@ namespace PS.DB.Repositories
             {
                 var items = db.Items.Where(element => element.id == id).SingleOrDefault();
                 db.Entry(items).State = EntityState.Deleted;
+                result = db.SaveChanges();
+            }
+            return result;
+        }
+
+        public int Edit(Item item)
+        {
+            int result = 0;
+            using (AddressEntities db = new AddressEntities())
+            {
+                db.Entry(item).State = EntityState.Modified;
                 result = db.SaveChanges();
             }
             return result;

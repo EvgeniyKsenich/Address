@@ -13,7 +13,7 @@ namespace PS.DB.Repositories
 
         int Delete(int id);
 
-        //T Edit(int id);
+        int Edit(T item);
 
         void Save(T item);
 

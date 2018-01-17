@@ -49,12 +49,14 @@ namespace PS.Web.Controllers
         [HttpPost]
         public void Post([FromBody]Item item)
         {
+            ItemRepositories.Save(item);
         }
 
         // PUT api/Address/5
         [HttpPut]
-        public void Put(int id, [FromBody]Item item)
+        public void Put([FromBody]Item item)
         {
+            ItemRepositories.Edit(item);
         }
 
         // DELETE api/Address/5
