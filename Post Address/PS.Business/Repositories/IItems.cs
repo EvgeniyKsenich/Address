@@ -9,7 +9,9 @@ namespace PS.DB.Repositories
     {
         IEnumerable<T> GetList();
 
-        //T Delete(int id);
+        T GetById(int id);
+
+        int Delete(int id);
 
         //T Edit(int id);
 

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace PS.DB.Repositories
 {
@@ -18,6 +19,17 @@ namespace PS.DB.Repositories
                 List = Mapper.Map<List<Item>>(items);
             }
             return List;
+        }
+
+        public Item GetById(int id)
+        {
+            Item item;
+            using (AddressEntities db = new AddressEntities())
+            {
+                var items = db.Items.Where(element => element.id == id).SingleOrDefault();
+                item = Mapper.Map<Item>(items);
+            }
+            return item;
         }
 
         public void Save(Item item)
@@ -66,5 +78,18 @@ namespace PS.DB.Repositories
             }
             return result;
         }
+
+        public int Delete(int id)
+        {
+            int result = 0;
+            using (AddressEntities db = new AddressEntities())
+            {
+                var items = db.Items.Where(element => element.id == id).SingleOrDefault();
+                db.Entry(items).State = EntityState.Deleted;
+                result = db.SaveChanges();
+            }
+            return result;
+        }
+
     }
 }
